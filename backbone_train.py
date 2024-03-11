@@ -115,7 +115,6 @@ def main(
     # Train last fc
     model = SyntaxLightningModule(
         num_classes=num_classes,
-        video_shape=x.shape[1:],
         lr=1e-4,
         weight_decay=0.001,
         max_epochs=10,
@@ -139,7 +138,6 @@ def main(
     # Train all
     model = SyntaxLightningModule(
         num_classes=num_classes,
-        video_shape=x.shape[1:],
         lr=1e-4,
         weight_decay=0.001,
         max_epochs=max_epochs,

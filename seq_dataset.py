@@ -70,8 +70,8 @@ class SyntaxDataset(Dataset):
         label = torch.tensor([int(rec[self.label] > 0)], dtype=torch.float32)
         target = torch.tensor([np.log(1.0+rec[self.label])], dtype=torch.float32)
 
+        nv = len(rec[f"videos_{self.artery}"])
         if self.inference:
-            nv = len(rec[f"videos_{self.artery}"])
             if nv == 0:
                 return 0, label, target, weight, sid
             seq = range(nv)
