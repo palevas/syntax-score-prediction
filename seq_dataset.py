@@ -18,7 +18,8 @@ class SyntaxDataset(Dataset):
         train: bool,    # training mode
         length: int,    # video length
         label: str,     # label field name
-        artery: str,     # left or right artery
+        artery: str,    # left or right artery
+        inference: bool = False,
         transform: Optional[Callable] = None, 
     ) -> None:
         self.root = root
@@ -26,11 +27,13 @@ class SyntaxDataset(Dataset):
         self.length = length
         self.label = label
         self.artery = artery
+        self.inference = inference
         self.transform = transform
         with open(os.path.join(root, meta)) as f:
             dataset = json.load(f)
 
-        dataset = [rec for rec in dataset if len(rec[f"videos_{artery}"]) > 0]
+        if not self.inference:
+            dataset = [rec for rec in dataset if len(rec[f"videos_{artery}"]) > 0]
 
         if self.train:
             self.dataset = [rec for rec in dataset if rec[f"syntax_{artery}"] > 0]
@@ -42,7 +45,7 @@ class SyntaxDataset(Dataset):
             for rec in self.negative_dataset:
                 rec["weight"] = 1.0
         else:
-            self.dataset = [rec for rec in dataset if len(rec[f"videos_{artery}"]) > 0]
+            self.dataset = dataset
             self.negative_dataset = None
             for rec in self.dataset:
                 rec["weight"] = 1.0
@@ -63,11 +66,20 @@ class SyntaxDataset(Dataset):
             rec = self.dataset[idx]
 
         weight = rec["weight"]
+        sid = rec["study_id"]
         label = torch.tensor([int(rec[self.label] > 0)], dtype=torch.float32)
         target = torch.tensor([np.log(1.0+rec[self.label])], dtype=torch.float32)
 
+        if self.inference:
+            nv = len(rec[f"videos_{self.artery}"])
+            if nv == 0:
+                return 0, label, target, weight, sid
+            seq = range(nv)
+        else:
+            seq = torch.randint(low=0, high=nv, size = (4,))
+
         videos = []
-        for vi in torch.randint(low=0, high=len(rec[f"videos_{self.artery}"]), size = (4,)):
+        for vi in seq:
             video_rec = rec[f"videos_{self.artery}"][vi]
             path = video_rec["path"]
             full_path = os.path.join(self.root, path)
@@ -91,4 +103,4 @@ class SyntaxDataset(Dataset):
             videos.append(video)
         videos = torch.stack(videos, dim=0)
 
-        return videos, label, target, weight, path
+        return videos, label, target, weight, sid
