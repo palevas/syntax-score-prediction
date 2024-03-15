@@ -1,5 +1,7 @@
 # End-to-end SYNTAX score prediction: benchmark and methods
 
+![Scheme](seq_model_scheme.png)
+
 ## Run inference:
 ```bash
 python seq_apply.py -r DATASET_DIR -w WEIGHTS_DIR --fold 0
