@@ -8,6 +8,7 @@ python seq_apply.py -r DATASET_DIR -w WEIGHTS_DIR --fold 0
 ```
 DATASET_DIR - dataset directory.\
 Sample dataset: https://disk.yandex.com/d/drZKKBJnH2r8vg
+Fu
 
 WEIGHTS_DIR - model weights directory.\
 Sample weights: https://disk.yandex.com/d/_4ARTacETFQr1A
@@ -29,3 +30,7 @@ python seq_train.py -r DATASET_DIR -a left --fold 0 --variant lstm_mean
 # train sequence model for right coronary artery
 python seq_train.py -r DATASET_DIR -a right --fold 0 --variant lstm_mean
 ```
+
+## Dataset
+This is the complete dataset that was used to train the model.
+https://zenodo.org/records/14005818
