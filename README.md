@@ -7,7 +7,7 @@
 python seq_apply.py -r DATASET_DIR -w WEIGHTS_DIR --fold 0
 ```
 DATASET_DIR - dataset directory.\
-Sample dataset: https://disk.yandex.com/d/drZKKBJnH2r8vg
+Sample dataset: https://disk.yandex.com/d/drZKKBJnH2r8vg \
 Full dataset: https://zenodo.org/records/14005818
 
 WEIGHTS_DIR - model weights directory.\
