@@ -34,3 +34,15 @@ python seq_train.py -r DATASET_DIR -a right --fold 0 --variant lstm_mean
 ## Dataset
 This is the complete dataset that was used to train the model.\
 CardioSYNTAX dataset: https://zenodo.org/records/14005818
+
+### BibTeX reference
+```
+@InProceedings{Ponomarchuk_2025_WACV,
+    author    = {Ponomarchuk, Alexander and Kruzhilov, Ivan and Mazanov, Gleb and Utegenov, Ruslan and Shadrin, Artem and Zubkova, Galina and Bessonov, Ivan and Blinov, Pavel},
+    title     = {CardioSyntax: End-to-End SYNTAX Score Prediction - Dataset Benchmark and Method},
+    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {February},
+    year      = {2025},
+    pages     = {5873-5883}
+}
+```
